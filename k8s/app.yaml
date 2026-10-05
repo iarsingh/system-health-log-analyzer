@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: system-health-log-analyzer
+  labels:
+    app: system-health-log-analyzer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: system-health-log-analyzer
+  template:
+    metadata:
+      labels:
+        app: system-health-log-analyzer
+    spec:
+      containers:
+        - name: api
+          image: system-health-log-analyzer:local
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /v1/readyz
+              port: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: system-health-log-analyzer
+spec:
+  selector:
+    app: system-health-log-analyzer
+  ports:
+    - port: 80
+      targetPort: 8080

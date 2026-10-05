@@ -1,6 +1,8 @@
+from analyzer.ops import router as ops_router
 from fastapi import FastAPI, HTTPException
 from analyzer.detect import InputError, alerts, ingest
 app = FastAPI(title="System Health & Log Analyzer")
+app.include_router(ops_router, prefix="/v1")
 
 @app.get("/healthz")
 def healthz():
