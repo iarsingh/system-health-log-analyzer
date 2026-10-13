@@ -1,5 +1,12 @@
 # System Health & Log Analyzer
 
+## Overview
+
+A small service that collects host snapshots of CPU, memory and disk along with application logs, and flags anomalies. Data is sent to `POST /ingest`, where the analyzer applies regex matching to the logs and checks the snapshot values, and `GET /alerts` returns the resulting anomaly flags over REST. Nothing is paged.
+
+- **Built with:** Python, FastAPI, pytest, GitHub Actions
+- **Scope:** Laptop proof with tests; it does not page anyone, call a hosted model or apply production changes.
+
 <!-- project-guide:start -->
 ## Project guide
 
